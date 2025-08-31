@@ -12,6 +12,7 @@ Shows any chat message in a draggable overlay window—no browser pop-ups requir
 - **Theme Aware**: Adapts to light/dark themes
 - **Live Updates**: Message content stays current if edited
 - **Quote & Emphasis Colors**: Preserves colored quotes and italic emphasis from themes
+- **Opaque Background**: Text is always legible, even over chat messages
 
 ## Installation
 
@@ -122,8 +123,9 @@ Source code: https://gitlab.benac.dev/tools/sillytavern-message-overlay
 
 Key files:
 - `manifest.json` - Extension metadata
-- `index.js` - Core functionality (~200 lines)
-- `style.css` - Responsive styles for overlay panel (~200 lines)
+- `index.js` - Core functionality (~400 lines)
+- `style.css` - Minimal styles with opaque background (~70 lines)
+- `template.html` - HTML template for overlay structure
 
 See `/opt/centroid-tools/sillytavern/DEVELOPMENT.md` for technical details.
 
@@ -177,6 +179,25 @@ Debug logs will show warnings (⚠️) for common issues like zero height, visib
 ## Credits
 
 Developed by Johnny & Assistant for the SillyTavern community.
+
+## Changelog
+
+### v2.1.0 (2025-08-31)
+- Fixed template loading for third-party extension installations
+- Fixed selector prefixes to properly display message content
+- Added opaque background for improved text legibility
+- Enhanced debug instrumentation for troubleshooting
+- Improved compatibility with different installation paths
+
+### v2.0.0
+- Complete rewrite to match SillyTavern's zoomed avatar pattern
+- Added template-based element creation
+- Improved drag and drop functionality
+- Better integration with SillyTavern's UI state management
+
+### v1.0.0
+- Initial release with popup window approach
+- Moved to overlay due to browser popup blockers
 
 ## License
 
