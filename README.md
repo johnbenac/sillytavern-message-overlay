@@ -145,6 +145,28 @@ See `/opt/centroid-tools/sillytavern/DEVELOPMENT.md` for technical details.
 - Report specific theme name and issue
 - Most themes are supported automatically
 
+### Debug Mode
+
+If you're experiencing issues with the overlay (especially on mobile/narrow viewports), enable debug mode:
+
+1. Open browser console (F12)
+2. Enable debug mode: `stmoDebug.enable()`
+3. Reload the page
+4. Try to reproduce the issue
+5. Check console for detailed debug output including:
+   - Viewport dimensions and breakpoints
+   - Computed styles (z-index, visibility, dimensions)
+   - Resize events and breakpoint changes
+   - Health checks every 500ms while overlay is visible
+   - Parent element transforms that might affect positioning
+
+**Debug commands:**
+- `stmoDebug.enable()` - Turn on debug logging
+- `stmoDebug.disable()` - Turn off debug logging  
+- `stmoDebug.status()` - Check current overlay state
+
+Debug logs will show warnings (⚠️) for common issues like zero height, visibility problems, or z-index conflicts.
+
 ## Future Ideas
 
 - Settings panel for customization
