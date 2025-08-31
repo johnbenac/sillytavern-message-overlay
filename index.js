@@ -103,10 +103,22 @@
   }
 
   function makeButton() {
-    const btn = document.createElement('button');
-    btn.className = `${BTN_CLASS} mes_button`;
-    btn.title = 'Show this message in an overlay';
+    // Use a <div> to match ST's menu items; keep a11y via role/tabindex
+    const btn = document.createElement('div');
+    btn.className = `${BTN_CLASS} mes_button interactable`;
+    btn.setAttribute('title', 'Show this message in an overlay');
+    btn.setAttribute('role', 'button');
+    btn.setAttribute('tabindex', '0');
     btn.innerHTML = '<span class="stmo-icon">▣</span>';
+    
+    // Keyboard activation
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+    
     return btn;
   }
 
@@ -139,7 +151,15 @@
       showOverlay(speaker || 'Message', html);
     });
 
-    actions.appendChild(btn);
+    // Find the collapsible menu and add our button there
+    const moreMenu = actions.querySelector('.extraMesButtons');
+    if (moreMenu) {
+      moreMenu.appendChild(btn);
+    } else {
+      // Fallback if no collapsible menu exists
+      actions.appendChild(btn);
+    }
+    
     mesNode.setAttribute(ADDED_ATTR, '1');
   }
 
