@@ -8,7 +8,7 @@ Shows any chat message in a responsive in-app overlay—no browser pop-ups requi
 - **Responsive Design**: 
   - Wide screens (≥1100px): Elegant side panel on the right
   - Narrow screens: Bottom sheet overlay
-- **Clean UI**: Minimal ▣ button in message actions
+- **Clean UI**: Font Awesome ↗ icon in the collapsible message menu
 - **Keyboard Support**: Press Esc to close
 - **Click-away Dismissal**: Click backdrop to close
 - **Theme Aware**: Adapts to light/dark themes
@@ -36,13 +36,14 @@ Shows any chat message in a responsive in-app overlay—no browser pop-ups requi
 
 ## Usage
 
-1. Look for the ▣ button in any message's action buttons (next to copy, TTS, etc.)
-2. Click to show message in the overlay
-3. Close with:
+1. Click the three dots (...) menu on any message to expand additional actions
+2. Look for the ↗ icon (up-right arrow) in the expanded menu
+3. Click the icon to show that message in the overlay
+4. Close the overlay with:
    - ✕ button in header
    - Click backdrop
    - Press Escape key
-4. Only one message shown at a time (clicking another replaces current)
+5. Only one message shown at a time (clicking another replaces current)
 
 ## Screenshots
 
@@ -96,6 +97,7 @@ CHAT_CHANGED → Clean up and re-enhance
 - Idempotent enhancement (safe to call multiple times)
 - Minimal DOM mutations (performance optimized)
 - Scoped selectors (theme compatible)
+- Button placement in `.extraMesButtons` (collapsible menu)
 
 ### Theme Integration
 - Uses `mes_text` class to inherit SillyTavern's text styling
@@ -103,6 +105,7 @@ CHAT_CHANGED → Clean up and re-enhance
   - `--SmartThemeQuoteColor` for quoted dialogue
   - `--SmartThemeEmColor` for emphasis/italics
 - Compatible with dialogue colorizer extensions
+- Button uses Font Awesome icons and ST's built-in `.mes_button` styling
 
 ### Security
 - DOMPurify sanitization when available
@@ -122,7 +125,7 @@ Source code: https://gitlab.benac.dev/tools/sillytavern-message-overlay
 Key files:
 - `manifest.json` - Extension metadata
 - `index.js` - Core functionality (~200 lines)
-- `style.css` - Responsive styles with theme integration (~240 lines)
+- `style.css` - Responsive styles for overlay panel (~200 lines)
 
 See `/opt/centroid-tools/sillytavern/DEVELOPMENT.md` for technical details.
 
