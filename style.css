@@ -12,6 +12,9 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    /* Opaque background for text legibility */
+    background: var(--SmartThemeBlurTintColor, rgba(20, 20, 20, 0.95));
+    backdrop-filter: blur(10px);
 }
 
 .message_overlay_header {
@@ -57,6 +60,10 @@
 
 /* Light theme adjustments */
 @media (prefers-color-scheme: light) {
+    .message_overlay .zoomed_avatar_container {
+        background: var(--SmartThemeBlurTintColor, rgba(248, 248, 248, 0.95));
+    }
+    
     .message_overlay_header {
         border-bottom-color: rgba(0, 0, 0, 0.08);
         background: rgba(0, 0, 0, 0.02);
