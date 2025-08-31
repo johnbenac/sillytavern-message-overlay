@@ -41,11 +41,11 @@
         const speaker = extractSpeaker(messageElement);
         const content = extractContent(messageElement);
         
-        // Check if overlay already exists for this message
-        if ($(`.message_overlay[forMessage="${messageId}"]`).length) {
+        // Check if overlay already exists for this message (use custom- prefix)
+        if ($(`.custom-message_overlay[forMessage="${messageId}"]`).length) {
             console.debug('removing container as it already existed');
-            $(`.message_overlay[forMessage="${messageId}"]`).fadeOut(animation_duration, () => {
-                $(`.message_overlay[forMessage="${messageId}"]`).remove();
+            $(`.custom-message_overlay[forMessage="${messageId}"]`).fadeOut(animation_duration, () => {
+                $(`.custom-message_overlay[forMessage="${messageId}"]`).remove();
             });
         } else {
             console.debug('making new container from template');
@@ -56,11 +56,11 @@
             newElement.attr('forMessage', messageId);
             newElement.attr('id', `messageOverlay_${messageId}`);
             newElement.addClass('draggable');
-            newElement.find('.drag-grabber').attr('id', `messageOverlay_${messageId}header`);
+            newElement.find('.custom-drag-grabber').attr('id', `messageOverlay_${messageId}header`);
             
-            // Set content
-            newElement.find('.message_overlay_title').text(speaker || 'Message');
-            newElement.find('.message_overlay_content').html(content);
+            // Set content (SillyTavern adds custom- prefix to all classes)
+            newElement.find('.custom-message_overlay_title').text(speaker || 'Message');
+            newElement.find('.custom-message_overlay_content').html(content);
             
             // Append to body like zoomed avatars
             $('body').append(newElement);
@@ -72,22 +72,22 @@
             }
             
             // Make draggable if available
-            $(`.message_overlay[forMessage="${messageId}"]`).css('display', 'block');
+            $(`.custom-message_overlay[forMessage="${messageId}"]`).css('display', 'block');
             if (dragElement) {
                 dragElement(newElement);
             }
             
-            // Handle close button
-            $('.message_overlay .dragClose, .message_overlay').on('click touchend', (e) => {
-                if (e.target.closest('.dragClose') || e.target.classList.contains('zoomed_avatar')) {
-                    $(`.message_overlay[forMessage="${messageId}"]`).fadeOut(animation_duration, () => {
-                        $(`.message_overlay[forMessage="${messageId}"]`).remove();
+            // Handle close button (use custom- prefix)
+            $('.custom-message_overlay .custom-dragClose, .custom-message_overlay').on('click touchend', (e) => {
+                if (e.target.closest('.custom-dragClose') || e.target.classList.contains('custom-zoomed_avatar')) {
+                    $(`.custom-message_overlay[forMessage="${messageId}"]`).fadeOut(animation_duration, () => {
+                        $(`.custom-message_overlay[forMessage="${messageId}"]`).remove();
                     });
                 }
             });
             
             // Prevent dragging on content
-            newElement.find('.message_overlay_content').on('dragstart', (e) => {
+            newElement.find('.custom-message_overlay_content').on('dragstart', (e) => {
                 console.log('preventing drag on message content');
                 e.preventDefault();
                 return false;
@@ -248,7 +248,7 @@
         
         // Remove all overlays when chat changes
         eventSource.on(event_types.CHAT_CHANGED, () => {
-            $('.message_overlay').fadeOut(animation_duration, function() {
+            $('.custom-message_overlay').fadeOut(animation_duration, function() {
                 $(this).remove();
             });
             setTimeout(enhanceAll, 100);
