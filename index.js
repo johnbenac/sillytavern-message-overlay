@@ -22,7 +22,23 @@
     async function injectTemplate() {
         console.log('[Message Overlay] Attempting to inject template...');
         try {
-            const templateUrl = `/scripts/extensions/${extensionName}/template.html`;
+            // Get the base URL of this script to handle both first-party and third-party installations
+            const scripts = Array.from(document.scripts);
+            const thisScript = scripts.find(s => s.src && s.src.includes('message-overlay'));
+            let baseUrl = '';
+            
+            if (thisScript) {
+                // Extract the directory path from the script URL
+                const scriptUrl = new URL(thisScript.src);
+                baseUrl = scriptUrl.pathname.substring(0, scriptUrl.pathname.lastIndexOf('/'));
+                console.log('[Message Overlay] Detected script base URL:', baseUrl);
+            } else {
+                // Fallback to default path
+                baseUrl = `/scripts/extensions/${extensionName}`;
+                console.log('[Message Overlay] Using fallback base URL:', baseUrl);
+            }
+            
+            const templateUrl = `${baseUrl}/template.html`;
             console.log('[Message Overlay] Fetching template from:', templateUrl);
             
             const response = await fetch(templateUrl);
