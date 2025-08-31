@@ -13,6 +13,7 @@ Shows any chat message in a responsive in-app overlay—no browser pop-ups requi
 - **Click-away Dismissal**: Click backdrop to close
 - **Theme Aware**: Adapts to light/dark themes
 - **Live Updates**: Message content stays current if edited
+- **Quote & Emphasis Colors**: Preserves colored quotes and italic emphasis from themes
 
 ## Installation
 
@@ -96,6 +97,13 @@ CHAT_CHANGED → Clean up and re-enhance
 - Minimal DOM mutations (performance optimized)
 - Scoped selectors (theme compatible)
 
+### Theme Integration
+- Uses `mes_text` class to inherit SillyTavern's text styling
+- Leverages theme variables:
+  - `--SmartThemeQuoteColor` for quoted dialogue
+  - `--SmartThemeEmColor` for emphasis/italics
+- Compatible with dialogue colorizer extensions
+
 ### Security
 - DOMPurify sanitization when available
 - No eval or dynamic code execution
@@ -114,7 +122,7 @@ Source code: https://gitlab.benac.dev/tools/sillytavern-message-overlay
 Key files:
 - `manifest.json` - Extension metadata
 - `index.js` - Core functionality (~200 lines)
-- `style.css` - Responsive styles (~300 lines)
+- `style.css` - Responsive styles with theme integration (~240 lines)
 
 See `/opt/centroid-tools/sillytavern/DEVELOPMENT.md` for technical details.
 
