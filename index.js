@@ -103,13 +103,12 @@
   }
 
   function makeButton() {
-    // Use a <div> to match ST's menu items; keep a11y via role/tabindex
     const btn = document.createElement('div');
-    btn.className = `${BTN_CLASS} mes_button interactable`;
+    // Match ST pattern exactly: mes_button + FA icon classes + interactable
+    btn.className = 'mes_button stmo_overlay fa-solid fa-up-right-from-square interactable';
     btn.setAttribute('title', 'Show this message in an overlay');
-    btn.setAttribute('role', 'button');
     btn.setAttribute('tabindex', '0');
-    btn.innerHTML = '<span class="stmo-icon">▣</span>';
+    // No innerHTML needed - Font Awesome handles the icon
     
     // Keyboard activation
     btn.addEventListener('keydown', (e) => {
@@ -152,7 +151,7 @@
     });
 
     // Find the collapsible menu and add our button there
-    const moreMenu = actions.querySelector('.extraMesButtons');
+    const moreMenu = actions.querySelector(':scope > .extraMesButtons');
     if (moreMenu) {
       moreMenu.appendChild(btn);
     } else {
