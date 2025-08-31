@@ -85,7 +85,7 @@
         console.log('[Message Overlay] Content preview:', content?.substring(0, 100) + '...');
         
         // Check if overlay already exists for this message (use custom- prefix)
-        const existingOverlay = $(`.custom-message_overlay[forMessage="${messageId}"]`);
+        const existingOverlay = $(`.message_overlay[forMessage="${messageId}"]`);
         console.log('[Message Overlay] Checking for existing overlay:', existingOverlay.length);
         
         if (existingOverlay.length) {
@@ -117,14 +117,14 @@
             newElement.attr('forMessage', messageId);
             newElement.attr('id', `messageOverlay_${messageId}`);
             newElement.addClass('draggable');
-            newElement.find('.custom-drag-grabber').attr('id', `messageOverlay_${messageId}header`);
+            newElement.find('.drag-grabber').attr('id', `messageOverlay_${messageId}header`);
             
             // Set content (SillyTavern adds custom- prefix to all classes)
-            const titleElement = newElement.find('.custom-message_overlay_title');
+            const titleElement = newElement.find('.message_overlay_title');
             console.log('[Message Overlay] Title element found:', titleElement.length);
             titleElement.text(speaker || 'Message');
             
-            const contentElement = newElement.find('.custom-message_overlay_content');
+            const contentElement = newElement.find('.message_overlay_content');
             console.log('[Message Overlay] Content element found:', contentElement.length);
             contentElement.html(content);
             
@@ -150,22 +150,22 @@
             }
             
             // Make draggable if available
-            $(`.custom-message_overlay[forMessage="${messageId}"]`).css('display', 'block');
+            $(`.message_overlay[forMessage="${messageId}"]`).css('display', 'block');
             if (dragElement) {
                 dragElement(newElement);
             }
             
             // Handle close button (use custom- prefix)
-            $('.custom-message_overlay .custom-dragClose, .custom-message_overlay').on('click touchend', (e) => {
-                if (e.target.closest('.custom-dragClose') || e.target.classList.contains('custom-zoomed_avatar')) {
-                    $(`.custom-message_overlay[forMessage="${messageId}"]`).fadeOut(animation_duration, () => {
-                        $(`.custom-message_overlay[forMessage="${messageId}"]`).remove();
+            $('.message_overlay .dragClose, .message_overlay').on('click touchend', (e) => {
+                if (e.target.closest('.dragClose') || e.target.classList.contains('zoomed_avatar')) {
+                    $(`.message_overlay[forMessage="${messageId}"]`).fadeOut(animation_duration, () => {
+                        $(`.message_overlay[forMessage="${messageId}"]`).remove();
                     });
                 }
             });
             
             // Prevent dragging on content
-            newElement.find('.custom-message_overlay_content').on('dragstart', (e) => {
+            newElement.find('.message_overlay_content').on('dragstart', (e) => {
                 console.log('preventing drag on message content');
                 e.preventDefault();
                 return false;
@@ -374,7 +374,7 @@
         
         // Remove all overlays when chat changes
         eventSource.on(event_types.CHAT_CHANGED, () => {
-            $('.custom-message_overlay').fadeOut(animation_duration, function() {
+            $('.message_overlay').fadeOut(animation_duration, function() {
                 $(this).remove();
             });
             setTimeout(enhanceAll, 100);
