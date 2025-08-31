@@ -7,7 +7,7 @@
 .stmo { 
   position: fixed; 
   inset: 0; 
-  z-index: 9999; 
+  z-index: 2147483647; /* Maximum safe value to sit above all ST mobile UI */
   pointer-events: none;
 }
 
@@ -34,9 +34,10 @@
   bottom: 0; 
   left: 0; 
   right: 0;
-  max-height: 85vh;
+  max-height: min(85dvh, 85vh); /* Dynamic viewport height for mobile stability */
   margin: 0 auto;
-  width: min(100vw, 920px);
+  width: 100%;
+  max-width: 920px;
   background: var(--SmartThemeBodyBg, #0f0f0f);
   color: var(--SmartThemeBodyColor, #e8e8e8);
   border-radius: 12px 12px 0 0;
