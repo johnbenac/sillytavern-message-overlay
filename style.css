@@ -222,3 +222,19 @@
   height: auto;
   min-height: unset;
 }
+
+/* Ensure ST theme colors apply to quotes and emphasis */
+.stmo-content q {
+  color: var(--SmartThemeQuoteColor);
+}
+
+.stmo-content i,
+.stmo-content em {
+  color: var(--SmartThemeEmColor);
+  font-style: italic;
+}
+
+/* Enhance blockquotes with theme color */
+.stmo-content blockquote {
+  border-left-color: var(--SmartThemeQuoteColor, rgba(255, 255, 255, 0.2));
+}

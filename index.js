@@ -33,7 +33,7 @@
           <button class="stmo-close" title="Close">✕</button>
         </div>
       </div>
-      <div class="stmo-content"></div>
+      <div class="stmo-content mes_text"></div>
     `;
 
     headerTitle = panel.querySelector('.stmo-title');
