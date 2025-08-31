@@ -327,6 +327,14 @@
           debug.log('Overlay visible during resize');
           debug.log('Root styles:', debug.getComputedInfo(root));
           debug.log('Panel styles:', debug.getComputedInfo(panel));
+          
+          // Keep the overlay as the last child of <body> to outstack theme overlays
+          document.body.appendChild(root);
+
+          // Nudge the panel to reflow without replaying the animation
+          panel.style.animation = 'none';
+          void panel.offsetHeight; // force reflow
+          panel.style.animation = '';
         }
         debug.groupEnd();
         
@@ -353,6 +361,13 @@
     if (debug.enabled) {
       console.log('[STMO Debug] Debug mode enabled. Disable with: localStorage.removeItem("stmo_debug")');
     }
+    
+    // Keep overlay on top when body classes mutate (theme/layout flips)
+    new MutationObserver(() => {
+      if (root && !root.classList.contains('stmo-hidden')) {
+        document.body.appendChild(root);
+      }
+    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
 
   // Initialize when SillyTavern is ready

@@ -1,203 +1,128 @@
-/* Message Overlay Extension Styles */
-:root { 
-  color-scheme: dark light; 
-}
+/* Message Overlay Extension Styles (mobile-first) */
+:root { color-scheme: dark light; }
 
-/* Root container */
-.stmo { 
-  position: fixed; 
-  inset: 0; 
-  z-index: 2147483647; /* Maximum safe value to sit above all ST mobile UI */
-  pointer-events: none;
-}
-
-.stmo:not(.stmo-hidden) {
-  pointer-events: auto;
-}
-
-.stmo-hidden { 
-  display: none; 
-}
-
-/* Backdrop */
-.stmo-backdrop {
-  position: absolute; 
+/* ---- Root container ---- */
+.stmo {
+  position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  z-index: 2147483647; /* stay above ST mobile UI */
+  pointer-events: none;
+  display: block; /* guard against theme resets */
+}
+
+.stmo:not(.stmo-hidden) { pointer-events: auto; }
+.stmo-hidden { display: none; }
+
+/* ---- Backdrop ---- */
+.stmo-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
 
-/* Panel container */
+/* ---- Panel (mobile-first: full-width bottom sheet) ---- */
 .stmo-panel {
   position: absolute;
-  bottom: 0; 
-  left: 0; 
-  right: 0;
-  max-height: min(85dvh, 85vh); /* Dynamic viewport height for mobile stability */
+  box-sizing: border-box;
+  left: 0; right: 0; bottom: 0; top: auto;
+
+  /* full width in narrow/medium; avoid brittle caps */
+  width: 100vw;
+  max-width: 100vw;
+
+  /* height tuned for mobile browser UI; prefer dynamic viewport units */
+  max-height: min(88dvh, 88svh, 88vh);
+
   margin: 0 auto;
-  width: 100%;
-  max-width: 920px;
   background: var(--SmartThemeBodyBg, #0f0f0f);
   color: var(--SmartThemeBodyColor, #e8e8e8);
   border-radius: 12px 12px 0 0;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
-  display: flex; 
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
+  display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
 
-/* Header */
+/* ---- Header ---- */
 .stmo-header {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center;
-  padding: 0.75rem 1rem; 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.1);
   flex-shrink: 0;
 }
-
-.stmo-title { 
-  font: 600 14px/1.2 system-ui, -apple-system, sans-serif; 
-  opacity: 0.9;
-  margin: 0;
-}
-
-/* Close button */
+.stmo-title { font: 600 14px/1.2 system-ui, -apple-system, sans-serif; opacity: 0.9; margin: 0; }
 .stmo-actions button.stmo-close {
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  background: transparent; 
-  color: inherit;
-  border-radius: 0.5rem; 
-  padding: 0.25rem 0.5rem; 
-  cursor: pointer; 
-  opacity: 0.7;
-  transition: all 0.15s ease;
-  font-size: 16px;
-  line-height: 1;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent; color: inherit;
+  border-radius: 0.5rem; padding: 0.25rem 0.5rem;
+  cursor: pointer; opacity: 0.7; transition: all 0.15s ease;
+  font-size: 16px; line-height: 1;
 }
+.stmo-actions button.stmo-close:hover { opacity: 1; background: rgba(255,255,255,0.1); }
 
-.stmo-actions button.stmo-close:hover { 
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Content area */
+/* ---- Content ---- */
 .stmo-content {
-  padding: 1.25rem 1.5rem; 
-  overflow: auto; 
-  line-height: 1.6;
-  flex: 1;
-  font-size: 15px;
+  padding: 1.25rem 1.5rem;
+  overflow: auto; line-height: 1.6; flex: 1; font-size: 15px;
 }
-
-/* Content formatting */
-.stmo-content p { 
-  margin: 0.5em 0; 
-}
-
-.stmo-content pre { 
-  background: rgba(0, 0, 0, 0.3); 
-  padding: 0.75rem; 
-  border-radius: 0.5rem; 
-  overflow: auto;
-  margin: 0.5em 0;
-}
-
-.stmo-content code { 
-  background: rgba(0, 0, 0, 0.2); 
-  padding: 0.1rem 0.35rem; 
-  border-radius: 0.35rem;
-  font-family: monospace;
-  font-size: 0.9em;
-}
-
-.stmo-content blockquote {
-  border-left: 3px solid rgba(255, 255, 255, 0.2);
-  margin: 0.5em 0;
-  padding-left: 1em;
-  opacity: 0.85;
-}
-
-/* Removed stmo-btn and stmo-icon styles - using ST's built-in styles instead */
+.stmo-content p { margin: 0.5em 0; }
+.stmo-content pre { background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 0.5rem; overflow: auto; margin: 0.5em 0; }
+.stmo-content code { background: rgba(0,0,0,0.2); padding: 0.1rem 0.35rem; border-radius: 0.35rem; font-family: monospace; font-size: 0.9em; }
+.stmo-content blockquote { border-left: 3px solid rgba(255,255,255,0.2); margin: 0.5em 0; padding-left: 1em; opacity: 0.85; }
 
 /* Light theme adjustments */
 @media (prefers-color-scheme: light) {
-  .stmo-panel {
-    background: var(--SmartThemeBodyBg, #ffffff);
-    color: var(--SmartThemeBodyColor, #1a1a1a);
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
-  }
-  
-  .stmo-header {
-    border-bottom-color: rgba(0, 0, 0, 0.08);
-    background: rgba(0, 0, 0, 0.02);
-  }
-  
-  .stmo-actions button.stmo-close {
-    border-color: rgba(0, 0, 0, 0.2);
-  }
-  
-  .stmo-actions button.stmo-close:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
-  
-  .stmo-content pre {
-    background: rgba(0, 0, 0, 0.05);
-  }
-  
-  .stmo-content code {
-    background: rgba(0, 0, 0, 0.08);
-  }
-  
-  .stmo-content blockquote {
-    border-left-color: rgba(0, 0, 0, 0.2);
-  }
+  .stmo-panel { background: var(--SmartThemeBodyBg, #fff); color: var(--SmartThemeBodyColor, #1a1a1a); box-shadow: 0 -4px 24px rgba(0,0,0,0.15); }
+  .stmo-header { border-bottom-color: rgba(0,0,0,0.08); background: rgba(0,0,0,0.02); }
+  .stmo-actions button.stmo-close { border-color: rgba(0,0,0,0.2); }
+  .stmo-actions button.stmo-close:hover { background: rgba(0,0,0,0.05); }
+  .stmo-content pre { background: rgba(0,0,0,0.05); }
+  .stmo-content code { background: rgba(0,0,0,0.08); }
+  .stmo-content blockquote { border-left-color: rgba(0,0,0,0.2); }
 }
 
-/* Wide screens - side panel mode */
-@media (min-width: 1100px) {
+/* ---- Responsive phases (range syntax with fallbacks) ---- */
+
+/* MEDIUM: 750px ≤ width < 1200px → keep full-width bottom sheet */
+@media (750px <= width < 1200px) { 
+  /* no width cap here; full-width bottom sheet is intentional */
+}
+
+/* WIDE: width ≥ 1200px → right docked side panel */
+@media (width >= 1200px) {
   .stmo-panel {
-    width: 520px; 
-    right: 24px; 
-    left: auto; 
-    bottom: 24px; 
-    top: 24px;
+    width: 520px;
+    max-width: 520px;        /* fixed side panel width */
+    right: 24px; left: auto; bottom: 24px; top: 24px;
     max-height: calc(100vh - 48px);
     border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    padding-bottom: 0; /* no safe-area pad on desktop */
   }
 }
 
-/* Animation */
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
+/* Fallbacks for browsers without range syntax support */
+@media (min-width: 1200px) {
+  .stmo-panel {
+    width: 520px;
+    max-width: 520px;
+    right: 24px; left: auto; bottom: 24px; top: 24px;
+    max-height: calc(100vh - 48px);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    padding-bottom: 0;
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
-.stmo:not(.stmo-hidden) .stmo-panel {
-  animation: slideUp 0.2s ease-out;
-}
+/* ---- Animation ---- */
+@keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.stmo:not(.stmo-hidden) .stmo-panel { animation: slideUp 0.2s ease-out; }
 
-/* Ensure ST theme colors apply to quotes and emphasis */
-.stmo-content q {
-  color: var(--SmartThemeQuoteColor);
-}
-
-.stmo-content i,
-.stmo-content em {
-  color: var(--SmartThemeEmColor);
-  font-style: italic;
-}
-
-/* Enhance blockquotes with theme color */
-.stmo-content blockquote {
-  border-left-color: var(--SmartThemeQuoteColor, rgba(255, 255, 255, 0.2));
-}
+/* Theme color carry-through */
+.stmo-content q { color: var(--SmartThemeQuoteColor); }
+.stmo-content i, .stmo-content em { color: var(--SmartThemeEmColor); font-style: italic; }
+.stmo-content blockquote { border-left-color: var(--SmartThemeQuoteColor, rgba(255,255,255,0.2)); }
