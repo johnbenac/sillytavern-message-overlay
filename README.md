@@ -1,16 +1,14 @@
 # Message Overlay Extension for SillyTavern
 
-Shows any chat message in a responsive in-app overlay—no browser pop-ups required. Works just like the avatar expansion feature: side panel on wide screens, full overlay on narrow screens.
+Shows any chat message in a draggable overlay window—no browser pop-ups required. Uses the exact same pattern as SillyTavern's zoomed avatars, making it fully consistent with the UI.
 
 ## Features
 
+- **Draggable Window**: Move it anywhere on screen, just like zoomed avatars
+- **Persistent Position**: Remembers where you placed it (if movingUI is enabled)
 - **In-App Overlay**: No popup blockers to worry about
-- **Responsive Design**: 
-  - Wide screens (≥1100px): Elegant side panel on the right
-  - Narrow screens: Bottom sheet overlay
 - **Clean UI**: Font Awesome ↗ icon in the collapsible message menu
-- **Keyboard Support**: Press Esc to close
-- **Click-away Dismissal**: Click backdrop to close
+- **Click to Close**: Click the X button or outside the overlay
 - **Theme Aware**: Adapts to light/dark themes
 - **Live Updates**: Message content stays current if edited
 - **Quote & Emphasis Colors**: Preserves colored quotes and italic emphasis from themes
